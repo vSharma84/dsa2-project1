@@ -31,7 +31,7 @@ int main() {
     ifstream infile("names.txt");
 
     if (!infile.is_open()) {
-        cout << "Could not open names.txt\n";
+        cout << "Could not open names.txt" << endl;
         return 1;
     }
 
@@ -51,7 +51,7 @@ int main() {
     ofstream outfile("rawdata.txt");
 
     if (!outfile.is_open()) {
-        cout << "Could not create rawdata.txt\n";
+        cout << "Could not create rawdata.txt" << endl;
         return 1;
     }
 
@@ -63,12 +63,33 @@ int main() {
             password += c;
         }
 
-        outfile << userids[i] << " " << password << "\n";
+        outfile << userids[i] << " " << password << endl;
     }
 
     outfile.close();
 
-    cout << "Created rawdata.txt with " << userids.size() << " entries\n";
+    ifstream rawfile("rawdata.txt");
+        if (!rawfile.is_open()) {
+            cout << "Could not open rawdata.txt" << endl;
+            return 1;
+        }
+
+    ofstream encfile("encrypteddata.txt");
+    if (!encfile.is_open()) {
+        cout << "Could not create encrypteddata.txt" << endl;
+        return 1;
+    }
+
+    string id;
+    string plainPassword;
+
+    while (rawfile >> id >> plainPassword) {
+        string encrypted = encryptPassword(plainPassword);
+        encfile << id << " " << encrypted << endl;
+    }  
+
+    rawfile.close();
+    encfile.close();
 
     return 0;
 
