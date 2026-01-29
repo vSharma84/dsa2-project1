@@ -5,6 +5,10 @@
 #include <cstdlib>
 #include <ctime>
 
+#include "HashTable.hpp"
+#include "LinkedList.hpp"
+
+
 using namespace std;
 
 string encryptPassword(string password) {
@@ -90,6 +94,25 @@ int main() {
 
     rawfile.close();
     encfile.close();
+
+    HashTable table;
+
+    ifstream encInput("encrypteddata.txt");
+    if (!encInput.is_open()) {
+        cout << "Could not open encrypteddata.txt\n";
+        return 1;
+    }
+
+    string uid;
+    string encryptedPassword;
+
+    while (encInput >> uid >> encryptedPassword) {
+        table.insert(uid, encryptedPassword);
+    }
+
+    encInput.close();
+
+    Node* testNode = table.search("SMITH");
 
     return 0;
 
