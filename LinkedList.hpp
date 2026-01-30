@@ -1,3 +1,11 @@
+/***************************************************************
+  Student Name: Vansh Sharma
+  File Name: LinkedList.hpp
+  Assignment number: 1
+
+ Defines Node structure and the LinkedList class.
+***************************************************************/
+
 #ifndef LINKEDLIST_HPP
 #define LINKEDLIST_HPP
 
@@ -5,6 +13,7 @@
 
 using std::string;
 
+// Node structure for storing one userid and encrypted password
 struct Node {
     string userid;
     string encryptedPassword;
@@ -17,6 +26,7 @@ struct Node {
     }
 };
 
+// Linked list class used as a bucket in the hash table
 class LinkedList {
 private:
     Node* head;

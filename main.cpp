@@ -1,3 +1,13 @@
+/***************************************************************
+  Student Name: Vansh Sharma
+  File Name: main.cpp
+  Assignment number: 1
+
+ Generates random passwords from names.txt, encrypts them using a Vigenère cipher,
+ puts them into hash table, and runs legal and 
+ illegal tests.
+***************************************************************/
+
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -11,6 +21,7 @@
 
 using namespace std;
 
+//Encrypts a password using the Vigenere cipher with key "jones"
 string encryptPassword(string password) {
     string key = "jones";
     string result = "";
@@ -32,6 +43,7 @@ string encryptPassword(string password) {
 }
 
 int main() {
+    //Read userids from names.txt
     ifstream infile("names.txt");
 
     if (!infile.is_open()) {
@@ -52,6 +64,7 @@ int main() {
 
     srand(time(0));
 
+    //Generate random plaintext passwords and write to rawdata.txt
     ofstream outfile("rawdata.txt");
 
     if (!outfile.is_open()) {
@@ -72,11 +85,12 @@ int main() {
 
     outfile.close();
 
+    //Read rawdata.txt, encrypt passwords, and write encrypteddata.txt
     ifstream rawfile("rawdata.txt");
-        if (!rawfile.is_open()) {
-            cout << "Could not open rawdata.txt" << endl;
-            return 1;
-        }
+    if (!rawfile.is_open()) {
+        cout << "Could not open rawdata.txt" << endl;
+        return 1;
+    }
 
     ofstream encfile("encrypteddata.txt");
     if (!encfile.is_open()) {
@@ -95,6 +109,7 @@ int main() {
     rawfile.close();
     encfile.close();
 
+    //Load encrypted data into the hash table
     HashTable table;
 
     ifstream encInput("encrypteddata.txt");
@@ -111,7 +126,8 @@ int main() {
     }
 
     encInput.close();
-
+    
+    //Test legal userid/password combinations
     ifstream rawTest("rawdata.txt");
 
     if (!rawTest.is_open()) {
@@ -144,6 +160,41 @@ int main() {
 
     rawTest.close();
 
+    //Test illegal password combinations (modified passwords)
+    ifstream rawTest2("rawdata.txt");
+    if (!rawTest2.is_open()) {
+            cout << "Could not open rawdata.txt for illegal testing" << endl;
+        return 1;
+    }
+
+    cout << "\nIllegal:\n";
+    cout << "Userid Password(mod) Password(table/un) Result" << endl;
+
+    string badUser;
+    string badPass;
+    int lineNum2 = 1;
+
+    while (rawTest2 >> badUser >> badPass) {
+        if (lineNum2 == 1 || lineNum2 == 3 || lineNum2 == 5 ||
+            lineNum2 == 7 || lineNum2 == 9) {
+
+            badPass[0] = (badPass[0] == 'a') ? 'b' : 'a';
+
+            Node* found = table.search(badUser);
+            string encryptedBad = encryptPassword(badPass);
+
+        if (found != nullptr && encryptedBad != found->encryptedPassword) {
+            cout << badUser << " "
+                 << badPass << " "
+                 << found->encryptedPassword << " no match" << endl;
+        }
+    }
+
+        if (lineNum2 >= 9) break;
+        lineNum2++;
+    }
+
+    rawTest2.close();
 
     return 0;
 
