@@ -112,7 +112,38 @@ int main() {
 
     encInput.close();
 
-    Node* testNode = table.search("SMITH");
+    ifstream rawTest("rawdata.txt");
+
+    if (!rawTest.is_open()) {
+        cout << "Could not open rawdata.txt for testing" << endl;
+        return 1;
+    }
+
+    cout << "Legal:" << endl;
+    cout << "Userid Password(file) Password(table/un) Result" << endl;
+
+    string testUser;
+    string testPass;
+    int lineNum = 1;
+
+    while (rawTest >> testUser >> testPass) {
+        if (lineNum == 1 || lineNum == 3 || lineNum == 5 || lineNum == 7 || lineNum == 9) {
+            Node* found = table.search(testUser);
+            string encryptedTest = encryptPassword(testPass);
+
+        if (found != nullptr && encryptedTest == found->encryptedPassword) {
+            cout << testUser << " " << testPass << " " << testPass << " match" << endl;
+        }
+        }
+
+        if (lineNum >= 9) {
+            break;
+        }
+        lineNum++;
+    }
+
+    rawTest.close();
+
 
     return 0;
 
