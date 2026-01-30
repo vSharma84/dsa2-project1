@@ -14,9 +14,11 @@
 #include <string>
 #include <cstdlib>
 #include <ctime>
-
+#include <iomanip>
 #include "HashTable.hpp"
 #include "LinkedList.hpp"
+#include "Tester.hpp"
+#include "Cipher.hpp"
 
 
 using namespace std;
@@ -127,74 +129,8 @@ int main() {
 
     encInput.close();
     
-    //Test legal userid/password combinations
-    ifstream rawTest("rawdata.txt");
-
-    if (!rawTest.is_open()) {
-        cout << "Could not open rawdata.txt for testing" << endl;
-        return 1;
-    }
-
-    cout << "Legal:" << endl;
-    cout << "Userid Password(file) Password(table/un) Result" << endl;
-
-    string testUser;
-    string testPass;
-    int lineNum = 1;
-
-    while (rawTest >> testUser >> testPass) {
-        if (lineNum == 1 || lineNum == 3 || lineNum == 5 || lineNum == 7 || lineNum == 9) {
-            Node* found = table.search(testUser);
-            string encryptedTest = encryptPassword(testPass);
-
-        if (found != nullptr && encryptedTest == found->encryptedPassword) {
-            cout << testUser << " " << testPass << " " << testPass << " match" << endl;
-        }
-        }
-
-        if (lineNum >= 9) {
-            break;
-        }
-        lineNum++;
-    }
-
-    rawTest.close();
-
-    //Test illegal password combinations (modified passwords)
-    ifstream rawTest2("rawdata.txt");
-    if (!rawTest2.is_open()) {
-            cout << "Could not open rawdata.txt for illegal testing" << endl;
-        return 1;
-    }
-
-    cout << "\nIllegal:\n";
-    cout << "Userid Password(mod) Password(table/un) Result" << endl;
-
-    string badUser;
-    string badPass;
-    int lineNum2 = 1;
-
-    while (rawTest2 >> badUser >> badPass) {
-        if (lineNum2 == 1 || lineNum2 == 3 || lineNum2 == 5 ||
-            lineNum2 == 7 || lineNum2 == 9) {
-
-            badPass[0] = (badPass[0] == 'a') ? 'b' : 'a';
-
-            Node* found = table.search(badUser);
-            string encryptedBad = encryptPassword(badPass);
-
-        if (found != nullptr && encryptedBad != found->encryptedPassword) {
-            cout << badUser << " "
-                 << badPass << " "
-                 << found->encryptedPassword << " no match" << endl;
-        }
-    }
-
-        if (lineNum2 >= 9) break;
-        lineNum2++;
-    }
-
-    rawTest2.close();
+    runLegalTests(table);
+    runIllegalTests(table);
 
     return 0;
 
