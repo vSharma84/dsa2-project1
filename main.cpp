@@ -3,9 +3,8 @@
   File Name: main.cpp
   Assignment number: 1
 
- Generates random passwords from names.txt, encrypts them using a Vigenère cipher,
- puts them into hash table, and runs legal and 
- illegal tests.
+ Generates random passwords from names.txt, encrypts them using a cipher,
+ puts them into hash table, and runs legal and illegal tests.
 ***************************************************************/
 
 #include <iostream>

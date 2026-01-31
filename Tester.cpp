@@ -1,3 +1,10 @@
+/***************************************************************
+  Student Name: Vansh Sharma
+  File Name: Tester.cpp
+  Assignment number: 1
+
+ Implements functions that run legal and illegal userid/password tests.
+ ***************************************************************/
 #include "Tester.hpp"
 #include "Cipher.hpp"
 #include <iostream>
