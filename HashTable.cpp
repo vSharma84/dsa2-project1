@@ -8,10 +8,19 @@
 
 #include "HashTable.hpp"
 
+/***************************************************************
+  Function: HashTable
+  Purpose: Initializes the hash table.
+***************************************************************/
 HashTable::HashTable() {
 }
 
-// Computes a hash value for a userid
+/***************************************************************
+  Function: hashFunction
+  Purpose: Computes a hash value for a userid.
+  Parameter: userid (string) - userid to hash
+  Returns: int - index in hash table
+***************************************************************/
 int HashTable::hashFunction(string userid) {
     int sum = 0;
 
@@ -22,13 +31,23 @@ int HashTable::hashFunction(string userid) {
     return sum % TABLE_SIZE;
 }
 
-// Inserts a userid and encrypted password
+/***************************************************************
+  Function: insert
+  Purpose: Inserts a userid and encrypted password into the hash table.
+  Parameters: userid (string) - userid to insert
+              encryptedPassword (string) - encrypted password
+***************************************************************/
 void HashTable::insert(string userid, string encryptedPassword) {
     int index = hashFunction(userid);
     table[index].insert(userid, encryptedPassword);
 }
 
-// Searches the hash table for a given userid
+/***************************************************************
+  Function: search
+  Purpose: Searches the hash table for a userid.
+  Parameter: userid (string) - userid to search for
+  Returns: Node* - pointer to node if found, nullptr otherwise
+***************************************************************/
 Node* HashTable::search(string userid) {
     int index = hashFunction(userid);
     return table[index].search(userid);

@@ -23,7 +23,12 @@
 
 using namespace std;
 
-//Encrypts a password using the Vigenere cipher with key "jones"
+/***************************************************************
+  Function: encryptPassword
+  Purpose: Encrypts a plaintext password using the Vigenere cipher with key "jones".
+  Parameter: password (string) - plaintext password
+  Returns: string - encrypted password
+***************************************************************/
 string encryptPassword(string password) {
     string key = "jones";
     string result = "";
@@ -44,6 +49,11 @@ string encryptPassword(string password) {
     return result;
 }
 
+/***************************************************************
+  Function: main
+  Purpose: Reads input files, generates passwords, encrypts data, 
+           builds the hash table, and runs all tests.
+***************************************************************/
 int main() {
     //Read userids from names.txt
     ifstream infile("names.txt");

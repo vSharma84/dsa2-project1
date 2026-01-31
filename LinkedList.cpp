@@ -8,11 +8,21 @@
 
 #include "LinkedList.hpp"
 
+
+/***************************************************************
+  Function: LinkedList
+  Purpose: Initializes an empty linked list.
+***************************************************************/
 LinkedList::LinkedList() {
     head = nullptr;
 }
 
-// Inserts a new node at the head
+/***************************************************************
+  Function: insert
+  Purpose: Inserts a userid and encrypted password into the linked list.
+  Parameters: userid (string) - userid to insert
+              encryptedPassword (string) - encrypted password
+***************************************************************/
 void LinkedList::insert(string userid, string encryptedPassword) {
     Node* newNode = new Node(userid, encryptedPassword);
 
@@ -20,7 +30,12 @@ void LinkedList::insert(string userid, string encryptedPassword) {
     head = newNode;
 }
 
-// Searches for a userid
+/***************************************************************
+  Function: search
+  Purpose: Searches the linked list for a userid.
+  Parameter: userid (string) - userid to search for
+  Returns: Node* - pointer to node if found, nullptr otherwise
+***************************************************************/
 Node* LinkedList::search(string userid) {
     Node* current = head;
 

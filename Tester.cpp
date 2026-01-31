@@ -6,7 +6,11 @@
 
 using namespace std;
 
-// Tests valid userid/password combinations
+/***************************************************************
+  Function: runLegalTests
+  Purpose: Tests valid userid/password combinations.
+  Parameter: table (HashTable&) - populated hash table
+***************************************************************/
 void runLegalTests(HashTable& table) {
     ifstream rawTest("rawdata.txt");
 
@@ -30,6 +34,11 @@ void runLegalTests(HashTable& table) {
     rawTest.close();
 }
 
+/***************************************************************
+  Function: runIllegalTests
+  Purpose: Tests invalid password attempts.
+  Parameter: table (HashTable&) - populated hash table
+***************************************************************/
 void runIllegalTests(HashTable& table) {
     ifstream rawTest2("rawdata.txt");
     if (!rawTest2.is_open()) {
