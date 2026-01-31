@@ -15,7 +15,7 @@ void runLegalTests(HashTable& table) {
     ifstream rawTest("rawdata.txt");
 
     cout << "Legal:" << endl;
-    cout << left << setw(12) << "Userid" << setw(15) << "Password(file)" << setw(20) << "Password(table/un)" << "Result\n";
+    cout << left << setw(12) << "Userid" << setw(15) << "Password(file)" << setw(20) << "Password(table/un)" << "Result" << endl;
 
     string user;
     string pass;
@@ -25,7 +25,7 @@ void runLegalTests(HashTable& table) {
         if (line % 2 == 1) {
             Node* found = table.search(user);
             if (found != nullptr) {
-                cout << left << setw(12) << user << setw(15) << pass << setw(20) << pass << "match\n";
+                cout << left << setw(12) << user << setw(15) << pass << setw(20) << pass << "match" << endl;
             }
         }
         line++;
@@ -55,8 +55,6 @@ void runIllegalTests(HashTable& table) {
 
     while (rawTest2 >> badUser >> badPass) {
         if (lineNum2 == 1 || lineNum2 == 3 || lineNum2 == 5 || lineNum2 == 7 || lineNum2 == 9) {
-
-            // Change one character so password becomes illegal
             if (badPass[0] == 'a') {
                 badPass[0] = 'b';
             } else {
@@ -65,7 +63,6 @@ void runIllegalTests(HashTable& table) {
 
             Node* found = table.search(badUser);
 
-            // Encrypt the modified password using the same cipher as before
             string encryptedBad = encryptPassword(badPass);
 
             if (found != nullptr && encryptedBad != found->encryptedPassword) {
